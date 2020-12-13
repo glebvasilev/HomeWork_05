@@ -2,58 +2,50 @@ package com.company;
 
 class Shop {
     /*
-     *  Class represents reason of shop works
+     *  Class describes generic shop
      */
 
-    boolean goods = true;
-    boolean works = true;
+    protected boolean works = true;
 
-    public boolean sell() {
-        return works;
+    public void sell(boolean param) {
     }
 }
 
-    class onlineShop extends Shop {
+class onlineShop extends Shop {
 
-        boolean deliver() {
-            works = true;
-            if (works == true & goods == true) {
-                System.out.println("Delivered");
-            }
-            else {
-                System.out.println("Not delivered");
-            }
-            return true;
+    void deliver(boolean goods) {
+        if (this.works & goods) {
+            System.out.println("CLASS onlineShop: Sold And Delivered");
         }
-        public boolean sell() {
-            this.deliver();
-            return works;
+        else {
+            System.out.println("CLASS onlineShop: Not delivered");
         }
     }
+    public void sell(boolean param) {
+        this.deliver(param);
+    }
+}
 
-    class offlineShop extends Shop {
+class offlineShop extends Shop {
 
-        boolean take_out() {
-            works = false;
-            if (works == false & goods == true) {
-                System.out.println("Taken");
-            }
-            else {
-                System.out.println("Not taken");
-            }
-            return false;
+    void take_out(boolean goods) {
+        if (this.works & goods) {
+            System.out.println("CLASS offlineShop: Sold And Taken out");
         }
-        public boolean sell() {
-            this.take_out();
-            return works;
+        else {
+            System.out.println("CLASS offlineShop: Not Taken out");
         }
     }
-
-    public class Main {
-        public static void main(String args[]) {
-            onlineShop on = new onlineShop();
-            offlineShop off = new offlineShop();
-            on.deliver();
-            off.take_out();
-        }
+    public void sell(boolean param) {
+        this.take_out(param);
     }
+}
+
+public class Main {
+    public static void main(String args[]) {
+        onlineShop on = new onlineShop();
+        offlineShop off = new offlineShop();
+        on.sell(true);
+        off.sell(true);
+    }
+}
