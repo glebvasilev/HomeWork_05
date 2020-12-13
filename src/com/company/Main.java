@@ -6,15 +6,17 @@ class Shop {
      */
 
     boolean goods = true;
-    private boolean works = true;
+    boolean works = true;
 
-    public boolean sell(boolean amount) {
+    public boolean sell() {
         return works;
     }
+}
 
     class onlineShop extends Shop {
 
-        boolean deliver(boolean amount) {
+        boolean deliver() {
+            works = true;
             if (works == true & goods == true) {
                 System.out.println("Delivered");
             }
@@ -23,11 +25,16 @@ class Shop {
             }
             return true;
         }
+        public boolean sell() {
+            this.deliver();
+            return works;
+        }
     }
 
-    class OfflineShop extends Shop {
+    class offlineShop extends Shop {
 
-        boolean take_out(boolean amount) {
+        boolean take_out() {
+            works = false;
             if (works == false & goods == true) {
                 System.out.println("Taken");
             }
@@ -36,14 +43,17 @@ class Shop {
             }
             return false;
         }
+        public boolean sell() {
+            this.take_out();
+            return works;
+        }
     }
-}
 
     public class Main {
         public static void main(String args[]) {
-            Shop on = new Shop();
-            Shop off = new Shop();
-            System.out.println("The goods were delivered: " + on.sell(true));
-            System.out.println("The goods were taken: " + off.sell(false));
+            onlineShop on = new onlineShop();
+            offlineShop off = new offlineShop();
+            on.deliver();
+            off.take_out();
         }
     }
